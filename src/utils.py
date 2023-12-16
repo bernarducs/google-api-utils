@@ -6,6 +6,7 @@ from dotenv import dotenv_values
 from google.oauth2.service_account import Credentials
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
+from googleapiclient.http import MediaFileUpload
 
 
 ENV = dotenv_values('.env')
@@ -129,3 +130,29 @@ def export_dataset(dataframe, gsheet_id, sheet_name, cell_address='A2'):
         .execute()
     )
     return result
+
+
+def send_file_to_folder(folder_id, file_name, file_path):
+    """Send a file to a folder in google drive.
+
+    Args:
+        folder_id (str): ID of folder in google drive.
+        file_name (str): Name of file.
+        file_path (str): Path from where the file will be sent.
+    """
+
+    service = _create_gdrive_service()
+    folder_id = folder_id
+
+    file_metadata = {
+        'name': file_name,
+        'parents': [folder_id]
+    }
+    media = MediaFileUpload(Path(file_path, file_name),
+                            mimetype='text/plain',
+                            resumable=True)
+    
+    file = service.files().create(body=file_metadata,
+                                media_body=media,
+                                fields='id').execute()
+    
