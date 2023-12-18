@@ -154,5 +154,32 @@ def send_file_to_folder(folder_id, file_name, file_path):
     
     file = service.files().create(body=file_metadata,
                                 media_body=media,
-                                fields='id').execute()
+                                fields='id').execute()   
+    return file
+
+
+def empty_a_folder(folder_id):
+    """Delete all files in folder.
+
+    Args:
+        folder_id (str): The folder's ID.
+
+    Returns:
+        bool: True if succeeds.
+    """
+    service = _create_gdrive_service()
+    results = service.files().list(
+        q=f"'{folder_id}' in parents",
+        pageSize=1000,
+        fields="nextPageToken, files(id, name)"
+    ).execute()
+
+    items = results.get('files', [])
     
+    for file in items:
+        try:
+            service.files().delete(fileId=file['id']).execute()
+        except HttpError as error:
+            print(f"An error occurred: {error}")
+            return False
+    return True
