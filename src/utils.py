@@ -73,7 +73,7 @@ def _download_gsheet_file(file_id, file_path):
         _export_file(file, file_path)
 
 
-def _download_excel_file(file_id, file_path):
+def _download_file(file_id, file_path):
     service = _create_gdrive_service()
     try:
         request = service.files().get_media(fileId=file_id)
@@ -105,7 +105,7 @@ def download_spreadsheet(file_name, dir='outputs/', with_date=False):
     time_now = _time_now() if with_date else ''
 
     if file_name.endswith('xlsx'):
-        _download_excel_file(id_gdrive, f'{dir}{file_name}_{time_now}')
+        _download_file(id_gdrive, f'{dir}{file_name}_{time_now}')
     else:
         _download_gsheet_file(id_gdrive, f'{dir}{file_name}_{time_now}.xlsx')
     print('Download OK.')
