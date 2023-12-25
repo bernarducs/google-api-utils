@@ -9,7 +9,7 @@ from googleapiclient.http import MediaIoBaseDownload
 from googleapiclient.http import MediaFileUpload
 
 
-ENV = dotenv_values('.env')
+ENV = dotenv_values(Path(Path.cwd(), '.env'))
 TOKEN = Path(Path.home(), ENV['GTOKEN'])
 SCOPES = [
     'https://www.googleapis.com/auth/drive',
