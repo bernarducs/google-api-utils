@@ -183,3 +183,15 @@ def empty_a_folder(folder_id):
             print(f"An error occurred: {error}")
             return False
     return True
+
+
+def get_file_modification_time(file_id):
+    try:
+        service = _create_gdrive_service()
+        file = service.files().get(
+            fileId=file_id, 
+            fields='modifiedTime'
+        ).execute()
+        return file.get('modifiedTime')
+    except HttpError as error:
+        print(f'An error occurred: {error}')
