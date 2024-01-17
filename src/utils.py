@@ -20,7 +20,9 @@ SCOPES = [
 
 def _create_gdrive_service():
     credentials = Credentials.from_service_account_file(TOKEN, scopes=SCOPES)
-    service = discovery.build('drive', 'v3', credentials=credentials)
+    service = discovery.build(
+        'drive', 'v3', credentials=credentials, cache_discovery=False
+    )
     return service
 
 
@@ -144,17 +146,16 @@ def send_file_to_folder(folder_id, file_name, file_path):
     service = _create_gdrive_service()
     folder_id = folder_id
 
-    file_metadata = {
-        'name': file_name,
-        'parents': [folder_id]
-    }
-    media = MediaFileUpload(Path(file_path, file_name),
-                            mimetype='text/plain',
-                            resumable=True)
-    
-    file = service.files().create(body=file_metadata,
-                                media_body=media,
-                                fields='id').execute()   
+    file_metadata = {'name': file_name, 'parents': [folder_id]}
+    media = MediaFileUpload(
+        Path(file_path, file_name), mimetype='text/plain', resumable=True
+    )
+
+    file = (
+        service.files()
+        .create(body=file_metadata, media_body=media, fields='id')
+        .execute()
+    )
     return file
 
 
@@ -168,30 +169,43 @@ def empty_a_folder(folder_id):
         bool: True if succeeds.
     """
     service = _create_gdrive_service()
-    results = service.files().list(
-        q=f"'{folder_id}' in parents",
-        pageSize=1000,
-        fields="nextPageToken, files(id, name)"
-    ).execute()
+    results = (
+        service.files()
+        .list(
+            q=f"'{folder_id}' in parents",
+            pageSize=1000,
+            fields='nextPageToken, files(id, name)',
+        )
+        .execute()
+    )
 
     items = results.get('files', [])
-    
+
     for file in items:
         try:
             service.files().delete(fileId=file['id']).execute()
         except HttpError as error:
-            print(f"An error occurred: {error}")
+            print(f'An error occurred: {error}')
             return False
     return True
 
 
 def get_file_modification_time(file_id):
+    """Returns file modification date.
+
+    Args:
+        file_id (str): The file's ID.
+
+    Returns:
+        str: The file modification date.
+    """
     try:
         service = _create_gdrive_service()
-        file = service.files().get(
-            fileId=file_id, 
-            fields='modifiedTime'
-        ).execute()
+        file = (
+            service.files()
+            .get(fileId=file_id, fields='modifiedTime')
+            .execute()
+        )
         return file.get('modifiedTime')
     except HttpError as error:
         print(f'An error occurred: {error}')
