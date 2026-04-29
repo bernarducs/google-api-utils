@@ -1,6 +1,6 @@
-google-api-python-client==2.91.0
-google-auth-httplib2==0.1.0
-google-auth-oauthlib==1.0.0
-pandas
-lxml
-python-dotenv
+# Fonte de verdade das dependências está em pyproject.toml.
+# Este arquivo é mantido para compatibilidade com fluxos legados de instalação.
+# Para instalar o pacote:
+#     pip install .            (ou)
+#     pip install -e ".[dev]"
+-e .
