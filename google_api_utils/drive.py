@@ -54,6 +54,8 @@ def _iter_file_pages(
         params: Dict[str, Any] = {
             'pageSize': page_size,
             'fields': fields,
+            'supportsAllDrives': True,
+            'includeItemsFromAllDrives': True,
         }
         if query:
             params['q'] = query
@@ -127,7 +129,9 @@ def _download_media(file_id: str, destination: Path, export: bool) -> Path:
                 fileId=file_id, mimeType=GSHEET_EXPORT_MIME
             )
         else:
-            request = service.files().get_media(fileId=file_id)
+            request = service.files().get_media(
+                fileId=file_id, supportsAllDrives=True
+            )
         buffer = io.BytesIO()
         downloader = MediaIoBaseDownload(buffer, request)
         done = False
@@ -241,7 +245,7 @@ def get_file_modification_time(file_id: str) -> str:
         file = (
             _drive()
             .files()
-            .get(fileId=file_id, fields='modifiedTime')
+            .get(fileId=file_id, fields='modifiedTime', supportsAllDrives=True)
             .execute()
         )
         return file['modifiedTime']
