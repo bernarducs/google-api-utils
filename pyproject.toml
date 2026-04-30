@@ -45,7 +45,7 @@ dev = [
 gapi = "gapi_tools.cli:app"
 
 [project.urls]
-Repository = "https://github.com/bernardo/gapi-tools"
+Repository = "https://github.com/bernarducs/gapi-tools"
 
 [tool.hatch.build.targets.wheel]
 packages = ["gapi_tools"]
