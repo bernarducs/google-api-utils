@@ -1,10 +1,10 @@
-"""google_api_utils — utilitários para Google Drive e Sheets.
+"""gapi_tools — utilitários para Google Drive e Sheets.
 
 API pública:
 
-* :mod:`google_api_utils.drive` — operações sobre arquivos/pastas.
-* :mod:`google_api_utils.sheets` — operações sobre Google Sheets.
-* :mod:`google_api_utils.cli` — interface de linha de comando ``gapi``.
+* :mod:`gapi_tools.drive` — operações sobre arquivos/pastas.
+* :mod:`gapi_tools.sheets` — operações sobre Google Sheets.
+* :mod:`gapi_tools.cli` — interface de linha de comando ``gapi``.
 """
 
 from __future__ import annotations

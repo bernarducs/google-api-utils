@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import pandas as pd
 
-from google_api_utils import sheets
+from gapi_tools import sheets
 
 
 def test_export_dataframe_to_gsheet_calls_update_with_values(mock_drive_service, mocker):
     mocker.patch(
-        'google_api_utils.sheets.find_file_id', return_value='gsheet_id'
+        'gapi_tools.sheets.find_file_id', return_value='gsheet_id'
     )
     update_chain = (
         mock_drive_service.spreadsheets.return_value.values.return_value.update
@@ -33,7 +33,7 @@ def test_export_dataframe_to_gsheet_honors_cell_and_value_input(
     mock_drive_service, mocker
 ):
     mocker.patch(
-        'google_api_utils.sheets.find_file_id', return_value='gid'
+        'gapi_tools.sheets.find_file_id', return_value='gid'
     )
     update_chain = (
         mock_drive_service.spreadsheets.return_value.values.return_value.update

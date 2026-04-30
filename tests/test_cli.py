@@ -5,8 +5,8 @@ from __future__ import annotations
 import pytest
 from typer.testing import CliRunner
 
-from google_api_utils import cli, drive
-from google_api_utils.exceptions import RemoteFileNotFound
+from gapi_tools import cli, drive
+from gapi_tools.exceptions import RemoteFileNotFound
 
 
 @pytest.fixture
@@ -155,7 +155,7 @@ def test_sheets_export_df_reads_csv(runner, mocker, tmp_path):
     csv = tmp_path / 'data.csv'
     csv.write_text('a,b\n1,2\n3,4\n')
     fn = mocker.patch(
-        'google_api_utils.cli.sheets.export_dataframe_to_gsheet',
+        'gapi_tools.cli.sheets.export_dataframe_to_gsheet',
         return_value={'updatedRange': 'Plan1!A2:B3'},
     )
     result = runner.invoke(

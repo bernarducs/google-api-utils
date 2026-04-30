@@ -1,10 +1,10 @@
 """Resolução de configuração e credenciais do pacote.
 
 Estratégia de resolução do token (em ordem):
-1. Variável de ambiente ``GOOGLE_API_UTILS_TOKEN`` apontando para o JSON da
+1. Variável de ambiente ``GAPI_TOOLS_TOKEN`` apontando para o JSON da
    service account.
 2. Arquivo ``.env`` no diretório de trabalho atual com chave ``GTOKEN``.
-3. Arquivo ``.env`` em ``~/.config/google-api-utils/``.
+3. Arquivo ``.env`` em ``~/.config/gapi-tools/``.
 
 O nome ``GTOKEN`` é interpretado como caminho relativo a ``~`` (home), preservando
 o comportamento histórico do projeto.
@@ -20,7 +20,7 @@ from dotenv import dotenv_values
 
 from .exceptions import ConfigError
 
-ENV_VAR_TOKEN = 'GOOGLE_API_UTILS_TOKEN'
+ENV_VAR_TOKEN = 'GAPI_TOOLS_TOKEN'
 ENV_FILE_KEY = 'GTOKEN'
 
 SCOPES = (
@@ -31,10 +31,10 @@ SCOPES = (
 
 
 def _load_dotenv_token() -> Optional[Path]:
-    """Procura ``GTOKEN`` em ``.env`` no cwd e em ``~/.config/google-api-utils/``."""
+    """Procura ``GTOKEN`` em ``.env`` no cwd e em ``~/.config/gapi-tools/``."""
     candidates = (
         Path.cwd() / '.env',
-        Path.home() / '.config' / 'google-api-utils' / '.env',
+        Path.home() / '.config' / 'gapi-tools' / '.env',
     )
     for env_path in candidates:
         if not env_path.is_file():

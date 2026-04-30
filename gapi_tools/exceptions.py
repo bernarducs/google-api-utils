@@ -1,4 +1,4 @@
-"""Exceções tipadas do pacote google_api_utils."""
+"""Exceções tipadas do pacote gapi_tools."""
 
 from __future__ import annotations
 

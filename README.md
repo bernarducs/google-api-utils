@@ -1,4 +1,4 @@
-# google-api-utils
+# gapi-tools
 
 Utilitários em Python para automatizar tarefas no Google Drive (v3) e Google Sheets (v4) via *service account*. Inclui uma CLI unificada (`gapi`) e uma API programática.
 
@@ -40,9 +40,9 @@ Após instalar, o comando `gapi` fica disponível no `PATH`.
 
 Aponte para o JSON da service account de uma das três formas (resolvidas nessa ordem):
 
-1. variável de ambiente `GOOGLE_API_UTILS_TOKEN` com o caminho absoluto do arquivo JSON;
+1. variável de ambiente `GAPI_TOOLS_TOKEN` com o caminho absoluto do arquivo JSON;
 2. arquivo `.env` no diretório atual contendo `GTOKEN=/caminho/para/credenciais.json`;
-3. arquivo `.env` em `~/.config/google-api-utils/`.
+3. arquivo `.env` em `~/.config/gapi-tools/`.
 
 A planilha/arquivo precisa estar **compartilhado** com o e-mail da service account.
 
@@ -73,7 +73,7 @@ gapi sheets export-df dados.csv minha-planilha Plan1 --cell A2
 ## Uso programático
 
 ```python
-from google_api_utils import drive, sheets
+from gapi_tools import drive, sheets
 import pandas as pd
 
 # listar e baixar

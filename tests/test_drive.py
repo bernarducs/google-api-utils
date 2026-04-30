@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, call
 import pytest
 from googleapiclient.errors import HttpError
 
-from google_api_utils import drive
-from google_api_utils.exceptions import (
+from gapi_tools import drive
+from gapi_tools.exceptions import (
     DriveOperationError,
     RemoteFileNotFound,
 )

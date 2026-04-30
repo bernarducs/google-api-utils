@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "google-api-utils"
+name = "gapi-tools"
 version = "0.2.0"
 description = "Utilitários para automação de tarefas no Google Drive e Google Sheets via service account."
 readme = "README.md"
@@ -42,13 +42,13 @@ dev = [
 ]
 
 [project.scripts]
-gapi = "google_api_utils.cli:app"
+gapi = "gapi_tools.cli:app"
 
 [project.urls]
-Repository = "https://github.com/bernardo/google-api-utils"
+Repository = "https://github.com/bernardo/gapi-tools"
 
 [tool.hatch.build.targets.wheel]
-packages = ["google_api_utils"]
+packages = ["gapi_tools"]
 
 [tool.ruff]
 target-version = "py38"
