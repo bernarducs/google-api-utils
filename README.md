@@ -23,12 +23,10 @@ Utilitários em Python para automatizar tarefas no Google Drive (v3) e Google Sh
 Em ambiente de desenvolvimento (Linux/WSL):
 
 ```bash
-python3.8 -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+uv sync --extra dev
 ```
 
-Em produção:
+Em produção (Windows Server):
 
 ```bash
 pip install .
